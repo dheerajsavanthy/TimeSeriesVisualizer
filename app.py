@@ -14,7 +14,7 @@ from scipy import stats
 
 lmbda = 0.1375256746262143
 
-bestmodel = pickle.load( open( "ARIMA_best_model.pkl", "rb" ) )
+bestmodel = pickle.load( open( "model.pkl", "rb" ) )
 
 def prepare_input(start_date, end_date):
     core_date = '2011-12-31'
