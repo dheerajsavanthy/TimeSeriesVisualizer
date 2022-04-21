@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>
-            Argus Music Recommendation
+            Bitcoin Price Forecast
         </title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,9 +16,9 @@
             }
             .header {
 			text-align: center;
-			color: white;
+			color: goldenrod;
 			font-size: 35px;
-			font-family: Papyrus, Fantasy;
+			font-family: "Times New Roman", Times, serif;
             }
 
             .inputs {
@@ -113,8 +113,11 @@
     <body>
         <div class="header" >
             
-            <h1> Argus Music Recommendation </h1>
-                
+            <h1> Bitcoin Time Series Prediction </h1>
+            <h3> Please enter the dates for which you would like the forecast of bitcoin price </h3>
+            <i class="fa fa-bitcoin" style="font-size:48px;color:goldenrod"></i>
+            <br>
+                            
         </div>
         <div>
             <video autoplay loop class="back-video" muted plays-inline>
@@ -124,24 +127,24 @@
         <div class="content">
             <div class="inputs">
                 <form action="{{ url_for('predict') }}" method="post">
-                    <input type="text" name="name" placeholder="Name of the Song" required="required" />
-                     <input type="number" name="year" placeholder="Year of Release" />
+                    <input type="date" name="startdate" placeholder="Start Date" value="2012-01-01" min="2012-01-01" max="2025-12-31" required="required" />
+                     <input type="date" name="enddate" placeholder="End Date" value="2022-04-21" min="2012-01-02" max="2026-12-31" required="required" />
             </div>
             <div class="wrap">
-                <button class="button" type="submit" > Recommend
+                <button class="button" type="submit" > Predict
                 </button>
-            </div>
-            <div class="feedback">
-                <button class="feedback_button_like">
-                    <i class="fa fa-thumbs-up"></i>
-                </button>
-                <button class="feedback_button_dislike">
-                    <i class="fa fa-thumbs-down"></i>
-                </button>
-            </div>
-            <div class="output">
-                {{ prediction_text }}
             </div>
         </div>
+        <div id='chart' class='chart'></div>
+        <div class="output">
+            {{ prediction_text }}
+        </div>
     </body>
+
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script type='text/javascript'>
+      var graphs = {{graphJSON | safe}};
+      Plotly.plot('chart',graphs,{});
+    </script>    
+
 </html>
