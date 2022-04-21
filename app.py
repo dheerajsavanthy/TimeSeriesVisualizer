@@ -12,14 +12,7 @@ import io
 import statsmodels.api as sm
 from scipy import stats
 
-dfi = pd.read_csv("bitcoin.csv")
-dfi.Timestamp = pd.to_datetime(dfi.Timestamp, unit='s')
-dfi.index = dfi.Timestamp
-df_day= dfi.resample('D').mean()
-df_day = df_day.iloc[1200:,:]
-sm.tsa.seasonal_decompose(df_day.Weighted_Price)
-df_day['Weighted_Price_box'], lmbda = stats.boxcox(df_day.Weighted_Price)
-
+lmbda = 0.1375256746262143
 
 bestmodel = pickle.load( open( "ARIMA_best_model.pkl", "rb" ) )
 
